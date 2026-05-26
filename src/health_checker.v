@@ -2,28 +2,35 @@
 
 module health_checker (
     input wire clk,
+    input wire rst_n,
     input wire bit_in,
     output reg error_flag
 );
 
-reg [3:0] count = 0;
-reg prev_bit = 0;
+reg [3:0] count;
+reg prev_bit;
 
-always @(posedge clk)
-begin
-    if(bit_in == prev_bit)
-        count <= count + 1;
-
-    else
+always @(posedge clk or negedge rst_n) begin
+    if (!rst_n) begin
         count <= 0;
+        prev_bit <= 0;
+        error_flag <= 0;
+    end
+    else begin
 
-    prev_bit <= bit_in;
+        if (bit_in == prev_bit)
+            count <= count + 1;
+        else
+            count <= 0;
 
-    if(count >= 3)
-        error_flag <= 1'b1;
+        prev_bit <= bit_in;
 
-    else
-        error_flag <= 1'b0;
+        if (count > 8)
+            error_flag <= 1;
+        else
+            error_flag <= 0;
+
+    end
 end
 
 endmodule
