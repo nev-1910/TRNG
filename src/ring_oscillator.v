@@ -1,17 +1,16 @@
 `default_nettype none
 
 module ring_oscillator (
-    output wire osc_out
+    input wire clk,
+    input wire rst_n,
+    output reg osc_out
 );
 
-reg clk_reg;
-
-initial begin
-    clk_reg = 0;
+always @(posedge clk or negedge rst_n) begin
+    if (!rst_n)
+        osc_out <= 0;
+    else
+        osc_out <= ~osc_out;
 end
-
-always #5 clk_reg = ~clk_reg;
-
-assign osc_out = clk_reg;
 
 endmodule
