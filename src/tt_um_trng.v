@@ -36,13 +36,15 @@ post_processor pp1 (
 
 health_checker hc1 (
     .clk(clk),
+    .rst_n(rst_n),
     .bit_in(processed_signal),
     .error_flag(error_flag)
 );
 
 output_register or1 (
     .clk(clk),
-    .random_bit(processed_signal),
+    .rst_n(rst_n),
+    .bit_in(processed_signal),
     .random_data(random_data),
     .ready(ready)
 );
