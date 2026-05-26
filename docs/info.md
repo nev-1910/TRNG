@@ -1,20 +1,60 @@
-<!---
+# True Random Number Generator (TRNG)
 
-This file is used to generate your project datasheet. Please fill in the information below and delete any unused
-sections.
+## Overview
+This project implements a True Random Number Generator using a ring oscillator-based architecture.
 
-You can also include images in this folder and reference them in the markdown. Each image must be less than
-512 kb in size, and the combined size of all images must be less than 1 MB.
--->
+The design generates random bits from oscillator jitter and processes them through multiple stages before producing random output data.
 
-## How it works
+---
 
-Explain how your project works
+## Main Modules
 
-## How to test
+### Ring Oscillator
+Generates oscillating entropy source.
 
-Explain how to use your project
+### Sampler
+Samples oscillator output using system clock.
 
-## External hardware
+### Post Processor
+Improves randomness of generated bits.
 
-List external hardware used in your project (e.g. PMOD, LED display, etc), if any
+### Health Checker
+Detects repeated patterns or faulty outputs.
+
+### Output Register
+Stores generated random data before output.
+
+---
+
+## Inputs
+
+| Signal | Description |
+|--------|-------------|
+| clk | System clock |
+| rst_n | Active low reset |
+| ena | Enable signal |
+
+---
+
+## Outputs
+
+| Signal | Description |
+|--------|-------------|
+| uo_out[7:0] | Random output bits |
+| uio_out[0] | Ready signal |
+
+---
+
+## Tools Used
+
+- Verilog HDL
+- Icarus Verilog
+- Cocotb
+- TinyTapeout
+- OpenLane
+
+---
+
+## Author
+
+Nevin R Philip
