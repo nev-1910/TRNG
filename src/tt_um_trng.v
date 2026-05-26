@@ -17,8 +17,9 @@ wire processed_signal;
 wire error_flag;
 wire [31:0] random_data;
 wire ready;
-
 ring_oscillator ro1 (
+    .clk(clk),
+    .rst_n(rst_n),
     .osc_out(osc_signal)
 );
 
